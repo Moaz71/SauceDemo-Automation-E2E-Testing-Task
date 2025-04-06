@@ -1,14 +1,17 @@
 import Actions.BrowserActions;
 import POM.AddToCart;
+import POM.Cart;
 import POM.Login;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class AddToCartTC {
+public class CartTC {
 
     Login login ;
+    AddToCart addToCart;
+    Cart cart;
     /*******************************Test Data*******************************/
     String LoginUrl = "https://www.saucedemo.com/v1";
     String inventoryUrl = "https://www.saucedemo.com/v1/inventory.html";
@@ -22,39 +25,45 @@ public class AddToCartTC {
         BrowserActions.maximizeWindow();
     }
     @Test
-    public void AddToCart() {
+    public void countCartItems() {
 
+        //login
         loginHappyTest();
-
+        Assert.assertEquals(login.getCurrentUrl(),inventoryUrl);
         //add item to cart
-        AddToCart addToCart = new AddToCart();
-        addToCart.clickOnBackPackButton();
-        addToCart.clickOnOnesieButton();
-        addToCart.clickOnTShirtButton();
-
+        addItemToCart();
         //Assert if the item added to cart successfully
         Assert.assertEquals(addToCart.getItemsCount(),3);
+
+        //open cart
+        cart = new Cart();
+        cart.ckickOnCartButton();
+        //Assert if the item add to cart successfully
+        Assert.assertEquals(cart.getItemsCount(),3);
 
     }
 
     //remove item after Add
     @Test
     public void RemoveItem() {
+        //login
         loginHappyTest();
-
+        Assert.assertEquals(login.getCurrentUrl(),inventoryUrl);
         //add item to cart
-        AddToCart addToCart = new AddToCart();
-        addToCart.clickOnBackPackButton();
-        addToCart.clickOnOnesieButton();
-        addToCart.clickOnTShirtButton();
-
+        addItemToCart();
         //Assert if the item added to cart successfully
         Assert.assertEquals(addToCart.getItemsCount(),3);
-        //remove item from cart
-        addToCart.clickOnRemoveButton();
 
+        //open cart
+        cart = new Cart();
+        cart.ckickOnCartButton();
+        //Assert if the item add to cart successfully
+        Assert.assertEquals(cart.getItemsCount(),3);
+
+        //Remove item from cart
+        cart.clickOnRemoveButton();
         //Assert if the item removed from cart successfully
-        Assert.assertEquals(addToCart.getItemsCount(),2);
+        Assert.assertEquals(cart.getItemsCount(),2);
     }
 
 
@@ -69,7 +78,13 @@ public class AddToCartTC {
         login.enterUserName(standardUserName);
         login.enterPassword(userPassword);
         login.clickOnLoginButton();
-        Assert.assertEquals(login.getCurrentUrl(),inventoryUrl);
+
+    }
+    public void addItemToCart() {
+        addToCart = new AddToCart();
+        addToCart.clickOnBackPackButton();
+        addToCart.clickOnOnesieButton();
+        addToCart.clickOnTShirtButton();
 
     }
 }

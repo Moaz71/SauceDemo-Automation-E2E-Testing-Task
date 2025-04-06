@@ -7,6 +7,8 @@ public class AddToCart {
 
     /**********************************Selectors*********************************************/
     String backPackSelector = "//a[@id='item_4_title_link']/ancestor::div[@class='inventory_item']//button[contains(text(), 'ADD TO CART')]";
+    String backPackRemoveSelector = "//a[@id='item_4_title_link']/ancestor::div[@class='inventory_item']//button[contains(text(), 'REMOVE')]";
+
     String onesieSelector = "//a[@id='item_2_title_link']/ancestor::div[@class='inventory_item']//button[contains(text(), 'ADD TO CART')]";
     String tShirtSelector = "//a[@id='item_3_title_link']/ancestor::div[@class='inventory_item']//button[contains(text(), 'ADD TO CART')]";
     String cartButton = "//a[@class='shopping_cart_link fa-layers fa-fw']";
@@ -31,6 +33,11 @@ public class AddToCart {
     // get item added count
     public int getItemsCount(){
         return act.getNumberOfElements(cartItemsCountSelector,ElementActions.Locators.Xpath);
+    }
+
+    //remove item from cart
+    public void clickOnRemoveButton(){
+        act.click(backPackRemoveSelector,ElementActions.Locators.Xpath,cartButton,ElementActions.Locators.Xpath);
     }
 
 }
