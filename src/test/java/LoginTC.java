@@ -3,6 +3,7 @@ import POM.Login;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class LoginTC {
@@ -15,9 +16,10 @@ public class LoginTC {
     String userPassword = "secret_sauce";
     String wrongUserName = "moaz";
     String wrongPassword ="123";
-
+    @Parameters({"browser"})
     @BeforeTest
-    public void setUp() {BrowserActions.initializeWebDriver(BrowserActions.Browser.Chrome);
+    public void setUp( String browser) {
+        BrowserActions.initializeWebDriver(BrowserActions.Browser.valueOf(browser));
         BrowserActions.maximizeWindow();
     }
     @Test

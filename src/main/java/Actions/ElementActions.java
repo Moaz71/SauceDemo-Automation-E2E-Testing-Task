@@ -2,6 +2,7 @@ package Actions;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -9,11 +10,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
-import static Actions.BrowserActions.driver;
+//import static Actions.BrowserActions.driver;
 
 public class ElementActions {
-
+    WebDriver driver;
+    public ElementActions(){
+        this.driver=BrowserActions.drivers.get();
+    }
     public enum Locators{
         Xpath,
         CSS,
@@ -52,7 +57,7 @@ public class ElementActions {
             new WebDriverWait(driver, Duration.ofSeconds(1)).until(condition);
             return true;
         } catch (Exception e) {
-            System.out.println("Validation failed: " + conditionType + " - " + e.getMessage());
+            printTheExceptionErrorMsg(e,conditionType);
             return false;
         }
     }
@@ -145,7 +150,7 @@ public class ElementActions {
     }
 
     /***************************** TypeText method ************************************/
-    public boolean typeText(String selector, Locators l, String text) {
+    public boolean setText(String selector, Locators l, String text) {
         By element = returnElementLocatorBy(selector, l);
         if (validateOnElement(element, ElementCondition.CLICKABLE)) {
             driver.findElement(element).sendKeys(text);
@@ -180,5 +185,32 @@ public class ElementActions {
 
          return driver.findElements(element).size();
      }
+     /***************************** selectSpecificElementList******************************/
+     public void selectSpecificElementFromList(String selector,Locators l, int slectedElementIndex){
+         By element = returnElementLocatorBy(selector,l);
+         //implement wait util list is loaded
+         if(validateOnElement(element,ElementCondition.VISIBILITY)){
+             List<WebElement> elementList =driver.findElements(element);
+             System.out.println("Total elements found: " + elementList.size());
+             for (WebElement el : elementList) {
+                 System.out.println("Element text: " + el.getText());
+             }
+             elementList.get(slectedElementIndex).click();
+         }else{
+             System.out.println("The list is fail to load");
+         }
 
+     }
+    /*********************************** PrintTheExceptionErrorMsg ***************************/
+    private void printTheExceptionErrorMsg(Exception e, ElementCondition conditionType)
+    {
+        String fullErrorMsg=e.getMessage();
+        String []lines=fullErrorMsg.split("\n");
+        if (lines.length >= 2) {
+            System.out.println("Validation failed: " + conditionType + " - " + lines[0]);
+            System.out.println(lines[1]);
+        } else {
+            System.out.println("Validation failed: " + conditionType + " - " + fullErrorMsg);
+        }
+    }
 }

@@ -2,9 +2,8 @@ import Actions.BrowserActions;
 import POM.AddToCart;
 import POM.Login;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 
 public class AddToCartTC {
 
@@ -16,9 +15,10 @@ public class AddToCartTC {
     String userPassword = "secret_sauce";
 
 
+    @Parameters({"browser"})
     @BeforeTest
-    public void setUp() {
-        BrowserActions.initializeWebDriver(BrowserActions.Browser.Chrome);
+    public void setUp( String browser) {
+        BrowserActions.initializeWebDriver(BrowserActions.Browser.valueOf(browser));
         BrowserActions.maximizeWindow();
     }
     @Test
@@ -61,6 +61,13 @@ public class AddToCartTC {
     @AfterTest
     public void tearDown() {
         //BrowserActions.quitBrowser();
+    }
+    @AfterMethod
+    public void screenShotOnFailure(ITestResult result) {
+
+        if (result.getStatus() == ITestResult.FAILURE) {
+            BrowserActions.takeScreenShot(result.getName());
+        }
     }
 
     public void loginHappyTest() {

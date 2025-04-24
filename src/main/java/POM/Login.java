@@ -20,10 +20,10 @@ public class Login {
 
     //fill user and pass field
     public void enterUserName(String userName){
-        act.typeText(userNameSelector,ElementActions.Locators.Xpath,userName);
+        act.setText(userNameSelector,ElementActions.Locators.Xpath,userName);
     }
     public void enterPassword(String userPassword){
-        act.typeText(passwordSelector,ElementActions.Locators.Xpath,userPassword);
+        act.setText(passwordSelector,ElementActions.Locators.Xpath,userPassword);
     }
 
     //click on login button

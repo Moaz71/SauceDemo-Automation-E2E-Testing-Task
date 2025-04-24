@@ -29,15 +29,15 @@ public class Checkout {
 
     //fill user and pass field
     public void enterFirstName(String firstName){
-        act.typeText(firstNameSelector, ElementActions.Locators.Xpath,firstName);
+        act.setText(firstNameSelector, ElementActions.Locators.Xpath,firstName);
     }
 
     public void enterLastName(String lastName){
-        act.typeText(lastNameSelector, ElementActions.Locators.Xpath,lastName);
+        act.setText(lastNameSelector, ElementActions.Locators.Xpath,lastName);
     }
 
     public void enterPostalCode(String postalCode){
-        act.typeText(postalCodeSelector, ElementActions.Locators.Xpath,postalCode);
+        act.setText(postalCodeSelector, ElementActions.Locators.Xpath,postalCode);
     }
     public String getoverviewHeader(){
         return act.getText(headerTextSelector,ElementActions.Locators.Xpath);
