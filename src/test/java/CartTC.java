@@ -37,7 +37,6 @@ public class CartTC {
 
         //open cart
         cart = new Cart();
-        cart.ckickOnCartButton();
         //Assert if the item add to cart successfully
         Assert.assertEquals(cart.getItemsCount(),3);
 
@@ -56,7 +55,6 @@ public class CartTC {
 
         //open cart
         cart = new Cart();
-        cart.ckickOnCartButton();
         //Assert if the item add to cart successfully
         Assert.assertEquals(cart.getItemsCount(),3);
 
@@ -77,7 +75,7 @@ public class CartTC {
         login.navigateToLoginPage(LoginUrl);
         login.enterUserName(standardUserName);
         login.enterPassword(userPassword);
-        login.clickOnLoginButton();
+        login.clickOnLoginButton(true);
 
     }
     public void addItemToCart() {
@@ -85,6 +83,7 @@ public class CartTC {
         addToCart.clickOnBackPackButton();
         addToCart.clickOnOnesieButton();
         addToCart.clickOnTShirtButton();
+        addToCart.ckickOnCartButton();
 
     }
 }

@@ -43,11 +43,10 @@ public class CheckoutTC {
         openCart();
         //Assert if the item add to cart successfully
         Assert.assertEquals(cart.getItemsCount(),3);
+        cart.clickOnCheckoutButton();
 
         //click on checkout button
         checkout = new Checkout();
-        checkout.clickOnCheckoutButton();
-
         //enter user information
         checkout.enterFirstName(firstName);
         checkout.enterLastName(lastName);
@@ -102,7 +101,7 @@ public class CheckoutTC {
         login.navigateToLoginPage(LoginUrl);
         login.enterUserName(standardUserName);
         login.enterPassword(userPassword);
-        login.clickOnLoginButton();
+        login.clickOnLoginButton(false);
 
     }
     public void addItemToCart() {
@@ -114,7 +113,6 @@ public class CheckoutTC {
     }
 
     public void openCart() {
-        cart = new Cart();
-        cart.ckickOnCartButton();
+        addToCart.ckickOnCartButton();
     }
 }

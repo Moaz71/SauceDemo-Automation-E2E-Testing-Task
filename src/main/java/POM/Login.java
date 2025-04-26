@@ -14,21 +14,24 @@ public class Login {
     String errorMsgSelector = "//h3";
 
     //navigate
-    public void navigateToLoginPage(String pageUrl){
+    public Login navigateToLoginPage(String pageUrl){
         act.navigate(pageUrl,userNameSelector,ElementActions.Locators.Xpath);
+        return this;
     }
 
     //fill user and pass field
-    public void enterUserName(String userName){
+    public Login enterUserName(String userName){
         act.setText(userNameSelector,ElementActions.Locators.Xpath,userName);
+        return this;
     }
-    public void enterPassword(String userPassword){
+    public Login enterPassword(String userPassword){
         act.setText(passwordSelector,ElementActions.Locators.Xpath,userPassword);
+        return this;
     }
 
     //click on login button
-    public void clickOnLoginButton(){
-        act.click(loginButton,ElementActions.Locators.Xpath,expectedElement,ElementActions.Locators.Xpath);
+    public void clickOnLoginButton(Boolean validLogin){
+        act.click(loginButton,ElementActions.Locators.Xpath,expectedElement,ElementActions.Locators.Xpath,validLogin);
     }
     //get current url
     public String getCurrentUrl(){

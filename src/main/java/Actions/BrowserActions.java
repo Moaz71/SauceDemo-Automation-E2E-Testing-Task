@@ -4,8 +4,11 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,16 +16,38 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class BrowserActions {
     public static ThreadLocal<WebDriver> drivers = new ThreadLocal<>();
-    public static void initializeWebDriver(Browser browserName){
+
+    /* a new version of the initializeWebDriver method which handle unexpected popups issues*/
+    public static void initializeWebDriver(Browser browserName) {
+        switch (browserName) {
+            case Chrome -> {
+                ChromeOptions chromeOptions = new ChromeOptions();
+                chromeOptions.addArguments("--incognito");
+                drivers.set(new ChromeDriver(chromeOptions));
+            }
+            case firefox -> {
+
+                drivers.set(new FirefoxDriver());
+            }
+            case Edge -> {
+                drivers.set(new EdgeDriver());
+            }
+            default -> System.out.println("Unsupported browser: " + browserName);
+        }
+    }
+    public static void initializeWebDriver_withOutHandleUnexpectedPopup (Browser browserName){
 
        switch (browserName)
        {
            //switch arrow syntax doesn’t fall through like traditional switch-case blocks.
-           // Each case is already isolated.
+           // Each case is already isolated so no need to break.
+
            case Chrome -> drivers.set(new ChromeDriver());
            case firefox -> drivers.set(new FirefoxDriver());
            case Edge -> drivers.set(new EdgeDriver());

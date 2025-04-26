@@ -29,7 +29,7 @@ public class LoginTC {
         login.navigateToLoginPage(LoginUrl);
         login.enterUserName(standardUserName);
         login.enterPassword(userPassword);
-        login.clickOnLoginButton();
+        login.clickOnLoginButton(false);
         Assert.assertEquals(login.getCurrentUrl(),inventoryUrl);
     }
     @Test
@@ -37,7 +37,7 @@ public class LoginTC {
         login = new Login();
         login.navigateToLoginPage(LoginUrl);
         login.enterPassword(userPassword);
-        login.clickOnLoginButton();
+        login.clickOnLoginButton(false);
         Assert.assertEquals(login.getErrorMsg(),"Epic sadface: Username is required");
 
     }
@@ -46,7 +46,7 @@ public class LoginTC {
         login = new Login();
         login.navigateToLoginPage(LoginUrl);
         login.enterUserName(standardUserName);
-        login.clickOnLoginButton();
+        login.clickOnLoginButton(false);
         // assert the error msg
         Assert.assertEquals(login.getErrorMsg(),"Epic sadface: Password is required");
 
@@ -59,7 +59,7 @@ public class LoginTC {
         login.navigateToLoginPage(LoginUrl);
         login.enterUserName(wrongUserName);
         login.enterPassword(userPassword);
-        login.clickOnLoginButton();
+        login.clickOnLoginButton(false);
         Assert.assertEquals(login.getErrorMsg(),"Epic sadface: Username and password do not match any user in this service");
     }
 
@@ -70,7 +70,7 @@ public class LoginTC {
         login.navigateToLoginPage(LoginUrl);
         login.enterUserName(standardUserName);
         login.enterPassword(wrongPassword);
-        login.clickOnLoginButton();
+        login.clickOnLoginButton(false);
         Assert.assertEquals(login.getErrorMsg(),"Epic sadface: Username and password do not match any user in this service");
     }
 

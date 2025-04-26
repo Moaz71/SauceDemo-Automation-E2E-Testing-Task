@@ -9,8 +9,8 @@
     <test name="OnFireFox">
         <parameter name="browser" value="firefox"/>
         <classes>
-            <class name="AddToCartTC">
-            </class>
+            <class name="AddToCartTC"/>
+
 
         </classes>
     </test>

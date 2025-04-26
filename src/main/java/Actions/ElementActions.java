@@ -78,14 +78,19 @@ public class ElementActions {
      }
 
     /*********************************** click method - version 3 **********************************/
-    public boolean click(String selector, Locators l1, String expectedSelector, Locators l2) {
+    public boolean click(String selector, Locators l1, String expectedSelector, Locators l2,boolean enableMultipleClick) {
         By element = returnElementLocatorBy(selector, l1);
         By expected = returnElementLocatorBy(expectedSelector, l2);
+        if(enableMultipleClick){
+            return tryClick(element, expected)
+                    || tryHoverClick(element, expected)
+                    || tryEnter(element, expected)
+                    || tryDoubleClick(element, expected);
+        }else
+        {
+            return tryClick(element, expected);
+        }
 
-        return tryClick(element, expected)
-                || tryHoverClick(element, expected)
-                || tryEnter(element, expected)
-                || tryDoubleClick(element, expected);
     }
 
 
@@ -167,6 +172,22 @@ public class ElementActions {
         By element = returnElementLocatorBy(selector, l);
         if (validateOnElement(element, ElementCondition.VISIBILITY)) {
             String text = driver.findElement(element).getText();
+            System.out.println("Tried: GetText");
+            return text;
+        } else {
+            System.out.println("GetText failed");
+            return null;
+        }
+    }
+    /********************************** getAttributeValue method ***********************************/
+    public enum Attribute {
+        VALUE,
+        TEXT_CONTENT
+    }
+    public String getAttributeValue(String selector, Locators l, Attribute attribute) {
+        By element = returnElementLocatorBy(selector, l);
+        if (validateOnElement(element, ElementCondition.PRESENCE)) {
+            String text = driver.findElement(element).getAttribute(attribute.toString());
             System.out.println("Tried: GetText");
             return text;
         } else {

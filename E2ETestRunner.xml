@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<suite name="E2E Test Suite" parallel="methods" thread-count="4">
+    <test name="E2E Test">
+        <parameter name="browser" value="Chrome" />
+        <classes>
+            <class name="E2ETest"/>
+        </classes>
+    </test>
+
+</suite>

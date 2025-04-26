@@ -75,7 +75,7 @@ public class AddToCartTC {
         login.navigateToLoginPage(LoginUrl);
         login.enterUserName(standardUserName);
         login.enterPassword(userPassword);
-        login.clickOnLoginButton();
+        login.clickOnLoginButton(false);
         Assert.assertEquals(login.getCurrentUrl(),inventoryUrl);
 
     }
